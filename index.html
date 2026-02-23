@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>НЦРФИ — Негосударственный центр реагирования</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="24x24"
+      href="./images/favicons/favicon-24.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="48x48"
+      href="./images/favicons/favicon-48.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="64x64"
+      href="./images/favicons/favicon-64.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="128x128"
+      href="./images/favicons/favicon-128.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="128x128"
+      href="./images/favicons/favicon-128.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <link href="./css/style.css" rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+      }
+      .page {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .page-left,
+      .page-right-bg {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 25%;
+        flex-shrink: 0;
+        background-color: #051945;
+      }
+      .page-left {
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .page-right-bg {
+        right: 0;
+      }
+      #hero_bg,
+      #hero_bg_right {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+      #hero_bg canvas,
+      #hero_bg_right canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .page-left-footer {
+        position: relative;
+        z-index: 1;
+        padding: 1.5rem 2rem;
+        flex: none;
+        flex-grow: 0;
+        max-width: 440px;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        color: #576fa6;
+      }
+      .page-center {
+        margin-left: 25%;
+        margin-right: 25%;
+        width: 50%;
+        min-width: 0;
+        height: 100vh;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding-top: 88px;
+      }
+      .page-center::-webkit-scrollbar {
+        display: none;
+      }
+      .page-center > * {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+      }
+      .content-inner {
+        flex: 1 1 0;
+        padding: 2rem 3rem 3rem;
+        max-width: 52rem;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .header {
+        position: fixed;
+        top: 0;
+        left: 25%;
+        right: 25%;
+        width: 50%;
+        z-index: 10;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        padding: 0.75rem 3rem 1rem;
+        min-height: 80px;
+        border-top: 2px solid #7c3aed;
+        background: #fff;
+        box-sizing: border-box;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .logo {
+        flex-shrink: 0;
+        width: 70px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        display: block;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+      .header-title {
+        flex: none;
+        flex-grow: 0;
+        order: 1;
+        width: 267px;
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        text-transform: uppercase;
+        color: #133453;
+      }
+      .header-title .line-first {
+        color: #95a2aa;
+      }
+      .header-action {
+        box-sizing: border-box;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 12px 20px;
+        gap: 8px;
+        margin: 0;
+        min-height: 44px;
+        border: 0.8px solid #cfd8eb;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 1.3;
+        color: #000;
+        text-decoration: none;
+        background: #fff;
+        white-space: nowrap;
+      }
+      .header-action {
+        margin-left: auto;
+      }
+      .header-action:hover {
+        background: #f9fafb;
+      }
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #111;
+        margin: 0 0 1.25rem;
+      }
+      .section-title:not(.with-icon) {
+        text-align: left;
+      }
+      .section-interaction {
+        background: #f8f8f8;
+        width: 100%;
+        padding: 2rem 3rem;
+        box-sizing: border-box;
+      }
+      .section-interaction .section-title {
+        margin-bottom: 1.25rem;
+        text-align: center;
+      }
+      .section-participants .section-title {
+        text-align: center;
+      }
+      .section-benefits {
+        background: #f8f8f8;
+        padding: 2rem 3rem;
+        box-sizing: border-box;
+      }
+      .section-title .icon {
+        width: 2rem;
+        height: 2rem;
+        object-fit: contain;
+        object-position: center;
+        flex-shrink: 0;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+      @media (min-width: 901px) {
+        .page-left,
+        .page-right-bg {
+          width: calc((100% - 768px) / 2);
+        }
+        .page-center {
+          width: 768px;
+          margin-left: calc((100% - 768px) / 2);
+          margin-right: calc((100% - 768px) / 2);
+          min-width: 768px;
+        }
+        .header {
+          left: calc((100% - 768px) / 2);
+          right: calc((100% - 768px) / 2);
+          width: 768px;
+        }
+      }
+      @media (min-width: 1200px) {
+        .page-left,
+        .page-right-bg {
+          width: calc((100% - 920px) / 2);
+        }
+        .page-center {
+          width: 920px;
+          margin-left: calc((100% - 920px) / 2);
+          margin-right: calc((100% - 920px) / 2);
+          min-width: 920px;
+        }
+        .header {
+          left: calc((100% - 920px) / 2);
+          right: calc((100% - 920px) / 2);
+          width: 920px;
+        }
+        .content-inner {
+          max-width: 100%;
+        }
+      }
+      @media (min-width: 901px) and (max-width: 1199px) {
+        .content-inner {
+          max-width: 100%;
+        }
+      }
+      @media (min-width: 901px) {
+        .section-title .icon {
+          width: 70px;
+          height: 60px;
+        }
+        .partners-grid.emblem-cards,
+        .partners-grid.participant-cards {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1.5rem;
+          max-width: 648px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .partners-grid.emblem-cards .partner-card img,
+        .partners-grid.emblem-cards .partner-card object,
+        .partners-grid.emblem-cards .partner-card svg,
+        .partners-grid.participant-cards .partner-card img,
+        .partners-grid.participant-cards .partner-card object,
+        .partners-grid.participant-cards .partner-card svg {
+          max-width: 100%;
+          max-height: 100%;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+        }
+      }
+      .section-title.with-icon {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .numbered-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .numbered-list li {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+        align-items: flex-start;
+      }
+      .numbered-list .num {
+        box-sizing: border-box;
+        flex: none;
+        flex-grow: 0;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        gap: 10px;
+        width: 32px;
+        height: 32px;
+        border: 1px solid #b9c3cb;
+        border-radius: 40px;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 16px;
+        color: #000;
+      }
+      .numbered-list .body {
+        font-size: 0.9375rem;
+        line-height: 1.5;
+        color: #374151;
+      }
+      .numbered-list .body strong {
+        display: block;
+        margin-bottom: 0.25rem;
+        color: #111;
+      }
+      .partners-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+      .partner-card {
+        flex: 0 0 140px;
+        background: #f9fafb;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        font-size: 0.6875rem;
+        line-height: 1.3;
+        color: #6b7280;
+        font-weight: 500;
+      }
+      .partner-card img {
+        max-height: 40px;
+        width: auto;
+        margin-bottom: 0.5rem;
+        object-fit: contain;
+        object-position: center;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+      }
+      .partner-card .name {
+        display: block;
+      }
+      .partners-grid.emblem-cards .partner-card,
+      .partners-grid.participant-cards .partner-card {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 13.33px;
+        gap: 13.33px;
+        width: 200px;
+        height: 66.67px;
+        background: #ffffff;
+        flex: none;
+        flex-grow: 0;
+      }
+      .partners-grid.emblem-cards .partner-card img,
+      .partners-grid.emblem-cards .partner-card object,
+      .partners-grid.emblem-cards .partner-card svg {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        margin: 0;
+        display: block;
+        object-fit: contain;
+        object-position: center;
+      }
+      .partners-grid.participant-cards .partner-card img,
+      .partners-grid.participant-cards .partner-card object,
+      .partners-grid.participant-cards .partner-card svg {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        margin: 0;
+        display: block;
+        object-fit: contain;
+        object-position: center;
+      }
+      @media (min-width: 901px) {
+        .partners-grid.emblem-cards .partner-card img,
+        .partners-grid.emblem-cards .partner-card object,
+        .partners-grid.emblem-cards .partner-card svg,
+        .partners-grid.participant-cards .partner-card img,
+        .partners-grid.participant-cards .partner-card object,
+        .partners-grid.participant-cards .partner-card svg {
+          object-position: center;
+        }
+      }
+      .cta-wrap {
+        text-align: center;
+        padding: 2.5rem 0;
+      }
+      .cta-btn {
+        box-sizing: border-box;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: 12px 20px;
+        gap: 8px;
+        margin: 0;
+        min-height: 44px;
+        border: 0.8px solid #cfd8eb;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 1.3;
+        color: #051945;
+        text-decoration: none;
+        background: #fff;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .cta-btn:hover {
+        background: #f9fafb;
+        color: #051945;
+      }
+      @media (max-width: 1200px) {
+        .page {
+          flex-direction: column;
+        }
+        .page-left,
+        .page-right-bg {
+          position: relative;
+          width: 100%;
+          height: 50px;
+          min-height: 50px;
+          flex-shrink: 0;
+        }
+        .page-right-bg {
+          order: 1;
+        }
+        .page-center {
+          order: 2;
+          margin-left: 0;
+          margin-right: 0;
+          width: 100%;
+          flex: 1;
+          min-height: 0;
+          padding-top: 0;
+        }
+        .page-left {
+          order: 3;
+          position: relative;
+        }
+        .page-left::before {
+        .header {
+          flex-wrap: wrap;
+          padding: 1rem 1.5rem;
+        }
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: rgba(28, 49, 95, 0.8);
+          pointer-events: none;
+        }
+        .page-left .page-left-footer {
+          position: relative;
+          z-index: 1;
+        }
+        .header {
+          position: static;
+          left: auto;
+          right: auto;
+          width: 100%;
+          box-shadow: none;
+        }
+        .page-left-footer {
+          padding: 0.5rem 0 0.75rem 1.5rem;
+          font-size: 11px;
+          line-height: 1.35;
+          text-align: left;
+          max-width: none;
+          color: #d1d5db;
+          .header {
+            flex-wrap: wrap;
+            padding: 1rem 1.5rem;
+          }
+          .header {
+            flex-wrap: wrap;
+            padding: 1rem 1.5rem;
+          }
+          .header {
+            flex-wrap: wrap;
+            padding: 1rem 1.5rem;
+          }
+          .header {
+            flex-wrap: wrap;
+            padding: 1rem 1.5rem;
+          }
+          .header {
+            flex-wrap: wrap;
+            padding: 1rem 1.5rem;
+          }
+        }
+      }
+      @media (max-width: 900px) {
+        .content-inner {
+          padding: 1rem 1.25rem;
+        }
+      }
+      .top-bar-action {
+        display: none;
+      }
+      @media (max-width: 768px) {
+        .page-right-bg {
+          height: 100px;
+          min-height: 88px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 1rem;
+        }
+        .top-bar-action {
+          display: block;
+          position: relative;
+          z-index: 1;
+        }
+        .header-action--top {
+          background: transparent;
+          color: #fff;
+          border: 1px solid #fff;
+        }
+        .header-action--top:hover {
+          background: rgba(255, 255, 255, 0.15);
+          color: #fff;
+        }
+        .header .header-action {
+          display: none;
+        }
+        .header {
+          flex-direction: row;
+          flex-wrap: nowrap;
+          align-items: flex-start;
+          gap: 0.75rem;
+          padding: 0.75rem 1rem;
+        }
+        .header .logo {
+          width: 56px;
+          height: 64px;
+          flex-shrink: 0;
+        }
+        .header .logo img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+        .header-title {
+          width: auto;
+          min-width: 0;
+          flex: 1 1 0;
+          font-size: 10px;
+          line-height: 1.4;
+          color: #6b7280;
+        }
+        .header-title .line-first {
+          color: #9ca3af;
+        }
+      }
+      @media (max-width: 400px) {
+        .header .logo {
+          width: 48px;
+          height: 55px;
+        }
+        .header-title {
+          font-size: 9px;
+          line-height: 1.3;
+        }
+        .header {
+          padding: 0.75rem 1rem;
+          gap: 0.5rem;
+        }
+      }
+      @media (max-width: 768px) {
+        .section-benefits {
+          padding: 1.25rem 1rem;
+        }
+        .section-interaction {
+          padding: 1.25rem 1rem;
+        }
+        .section-benefits .section-title.with-icon {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+        .section-benefits .section-title .icon {
+          width: 56px;
+          height: 48px;
+        }
+        .section-benefits .section-title {
+          font-size: 1.25rem;
+          line-height: 1.35;
+          margin-bottom: 1.5rem;
+        }
+        .section-benefits .numbered-list li {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+        }
+        .section-benefits .numbered-list .num {
+          margin-bottom: 0;
+        }
+        .section-benefits .numbered-list .body {
+          font-size: 0.875rem;
+        }
+        .section-benefits .numbered-list .body strong {
+          margin-bottom: 0.35rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <aside class="page-left">
+        <div
+          id="hero_bg"
+          data-shape="triangle"
+          data-pixel-size="10"
+          data-ink="#5ab0ff"
+        ></div>
+        <div class="page-left-footer">
+          Негосударственный Центр реагирования и фиксации инцидентов в сфере
+          Fintech, Crypto, Blockchain, 2026
+        </div>
+      </aside>
+      <main class="page-center">
+        <header class="header">
+          <div class="logo" aria-hidden="true">
+            <img src="./images/logo.png" alt="" width="70" height="80" />
+          </div>
+          <p class="header-title">
+            <span class="line-first">Негосударственный</span><br />
+            Центр реагирования<br />
+            И фиксации инцидентов<br />
+            В сфере Fintech, Crypto, Blockchain
+          </p>
+          <a href="#" class="header-action">Сообщить об инциденте</a>
+        </header>
+
+        <div class="content-inner">
+          <section class="mb-10">
+            <h2 class="section-title">О центре</h2>
+
+            <ol class="numbered-list">
+              <li>
+                <span class="num">1</span>
+                <div class="body">
+                  <strong
+                    >Центр — это единая точка реагирования на инциденты.</strong
+                  >
+                  Участники рынка получают один канал для сообщения об
+                  инцидентах и координации реагирования.
+                </div>
+              </li>
+              <li>
+                <span class="num">2</span>
+                <div class="body">
+                  <strong>Мы повышаем финансовую безопасность страны.</strong>
+                  Систематизация и анализ инцидентов помогают снижать риски для
+                  отрасли.
+                </div>
+              </li>
+              <li>
+                <span class="num">3</span>
+                <div class="body">
+                  <strong
+                    >Мы помогаем участникам рынка предотвращать угрозы.</strong
+                  >
+                  Обмен сигналами и предупреждениями снижает вероятность
+                  повторения инцидентов.
+                </div>
+              </li>
+              <li>
+                <span class="num">4</span>
+                <div class="body">
+                  <strong
+                    >Центр — площадка доверия между государством и
+                    рынком.</strong
+                  >
+                  Взаимодействие с регуляторами и участниками в едином формате.
+                </div>
+              </li>
+              <li>
+                <span class="num">5</span>
+                <div class="body">
+                  <strong
+                    >Мы формируем устойчивую и прозрачную цифровую
+                    экономику.</strong
+                  >
+                  Стандарты реагирования и отчётности для сферы FinTech и
+                  криптоактивов.
+                </div>
+              </li>
+            </ol>
+          </section>
+          <section class="mb-10 section-benefits">
+            <h2 class="section-title with-icon">
+              <img
+                class="icon"
+                src="./images/medals.png"
+                alt=""
+                width="32"
+                height="32"
+              />
+              Что получают участники Центра
+            </h2>
+            <ol class="numbered-list">
+              <li>
+                <span class="num">1</span>
+                <div class="body">
+                  <strong>Приоритетное реагирование на инциденты.</strong>
+                  Оперативная поддержка и координация действий при кибератаках и
+                  финансовых инцидентах.
+                </div>
+              </li>
+              <li>
+                <span class="num">2</span>
+                <div class="body">
+                  <strong
+                    >Доступ к аналитике и предупреждениям об угрозах.</strong
+                  >
+                  Закрытые отчёты, индикаторы компрометации и ранние уведомления
+                  о новых схемах мошенничества.
+                </div>
+              </li>
+              <li>
+                <span class="num">3</span>
+                <div class="body">
+                  <strong>Снижение регуляторных и операционных рисков.</strong>
+                  Возможность добровольного раскрытия инцидентов и досудебного
+                  урегулирования.
+                </div>
+              </li>
+              <li>
+                <span class="num">4</span>
+                <div class="body">
+                  <strong>Статус надёжного участника рынка.</strong>
+                  Подтверждение участия в Центре и повышение доверия со стороны
+                  партнёров и регуляторов.
+                </div>
+              </li>
+              <li>
+                <span class="num">5</span>
+                <div class="body">
+                  <strong>Влияние на развитие отрасли.</strong>
+                  Участие в рабочих группах, обсуждении стандартов и
+                  формировании правил цифровых финансов.
+                </div>
+              </li>
+            </ol>
+          </section>
+        </div>
+        <section class="section-interaction">
+          <h2 class="section-title">Взаимодействие:</h2>
+          <div class="partners-grid emblem-cards" role="list">
+            <div class="partner-card" role="listitem">
+              <img
+                src="./images/emblems/emblem-1.svg"
+                alt="Федеральная служба по финансовому мониторингу"
+              />
+            </div>
+            <div class="partner-card" role="listitem">
+              <img src="./images/emblems/emblem-2.svg" alt="Банк России" />
+            </div>
+            <div class="partner-card" role="listitem">
+              <img
+                src="./images/emblems/emblem-3.svg"
+                alt="Федеральная налоговая служба"
+              />
+            </div>
+            <div class="partner-card" role="listitem">
+              <img
+                src="./images/emblems/emblem-4.svg"
+                alt="Федеральная служба безопасности РФ"
+              />
+            </div>
+            <div class="partner-card" role="listitem">
+              <img
+                src="./images/emblems/emblem-5.svg"
+                alt="Администрация Президента РФ"
+              />
+            </div>
+          </div>
+        </section>
+        <div class="content-inner">
+          <section class="section-participants">
+            <h2 class="section-title">Участники:</h2>
+            <div class="partners-grid participant-cards" role="list">
+              <div class="partner-card" role="listitem">
+                <img
+                  src="./images/participants/participant-1.svg"
+                  alt="grinex"
+                />
+              </div>
+              <div class="partner-card" role="listitem">
+                <img
+                  src="./images/participants/participant-2.svg"
+                  alt="OTCEX"
+                />
+              </div>
+              <div class="partner-card" role="listitem">
+                <img
+                  src="./images/participants/participant-3.svg"
+                  alt="РАКИБ"
+                />
+              </div>
+              <div class="partner-card" role="listitem">
+                <img
+                  src="./images/participants/participant-4.svg"
+                  alt="КоинКит"
+                />
+              </div>
+              <div class="partner-card" role="listitem">
+                <img src="./images/participants/participant-5.svg" alt="ЛДПР" />
+              </div>
+            </div>
+          </section>
+          <div class="cta-wrap">
+            <button type="button" class="cta-btn">Присоединиться</button>
+          </div>
+        </div>
+      </main>
+      <aside class="page-right-bg" aria-hidden="true">
+        <div
+          id="hero_bg_right"
+          data-shape="triangle"
+          data-pixel-size="10"
+          data-ink="#5ab0ff"
+        ></div>
+        <div class="top-bar-action">
+          <a href="#" class="header-action header-action--top"
+            >Сообщить об инциденте</a
+          >
+        </div>
+      </aside>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="./js/hero-bg.js"></script>
+  </body>
+</html>

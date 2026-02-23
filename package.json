@@ -1,0 +1,11 @@
+{
+  "name": "response_center",
+  "private": true,
+  "scripts": {
+    "build": "tailwindcss -i ./input.css -o ./css/style.css --minify",
+    "dev": "tailwindcss -i ./input.css -o ./css/style.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
