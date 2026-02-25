@@ -107,14 +107,14 @@
         min-width: 0;
         height: 100vh;
         overflow-y: auto;
+        scroll-behavior: smooth;
         scrollbar-width: none;
         -ms-overflow-style: none;
         background: #fff;
         display: flex;
         flex-direction: column;
         align-items: stretch;
-        padding-top: 88px;
-      }
+        }
       .page-center::-webkit-scrollbar {
         display: none;
       }
@@ -132,12 +132,6 @@
         width: 100%;
       }
       .header {
-        position: fixed;
-        top: 0;
-        left: 25%;
-        right: 25%;
-        width: 50%;
-        z-index: 10;
         flex-shrink: 0;
         display: flex;
         align-items: center;
@@ -147,7 +141,6 @@
         border-top: 2px solid #7c3aed;
         background: #fff;
         box-sizing: border-box;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
       }
       .logo {
         flex-shrink: 0;
@@ -258,11 +251,6 @@
           margin-right: calc((100% - 768px) / 2);
           min-width: 768px;
         }
-        .header {
-          left: calc((100% - 768px) / 2);
-          right: calc((100% - 768px) / 2);
-          width: 768px;
-        }
       }
       @media (min-width: 1200px) {
         .page-left,
@@ -274,11 +262,6 @@
           margin-left: calc((100% - 920px) / 2);
           margin-right: calc((100% - 920px) / 2);
           min-width: 920px;
-        }
-        .header {
-          left: calc((100% - 920px) / 2);
-          right: calc((100% - 920px) / 2);
-          width: 920px;
         }
         .content-inner {
           max-width: 100%;
@@ -445,7 +428,7 @@
       }
       .cta-wrap {
         text-align: center;
-        padding: 2.5rem 0;
+        padding: 0.25rem 0;
       }
       .cta-btn {
         box-sizing: border-box;
@@ -691,7 +674,7 @@
             И фиксации инцидентов<br />
             В сфере Fintech, Crypto, Blockchain
           </p>
-          <a href="#" class="header-action">Сообщить об инциденте</a>
+          <a href="https://t.me/+M-QbTEuzXUtjOTgy" target="_blank" rel="noopener noreferrer" class="header-action">Сообщить об инциденте</a>
         </header>
 
         <div class="content-inner">
@@ -806,8 +789,11 @@
               </li>
             </ol>
           </section>
+          <div class="cta-wrap">
+            <a href="https://t.me/+M-QbTEuzXUtjOTgy" target="_blank" rel="noopener noreferrer" class="cta-btn">Присоединиться</a>
+          </div>
         </div>
-        <section class="section-interaction">
+        <!-- <section class="section-interaction">
           <h2 class="section-title">Взаимодействие:</h2>
           <div class="partners-grid emblem-cards" role="list">
             <div class="partner-card" role="listitem">
@@ -838,44 +824,10 @@
               />
             </div>
           </div>
-        </section>
-        <div class="content-inner">
-          <section class="section-participants">
-            <h2 class="section-title">Участники:</h2>
-            <div class="partners-grid participant-cards" role="list">
-              <div class="partner-card" role="listitem">
-                <img
-                  src="./images/participants/participant-1.svg"
-                  alt="grinex"
-                />
-              </div>
-              <div class="partner-card" role="listitem">
-                <img
-                  src="./images/participants/participant-2.svg"
-                  alt="OTCEX"
-                />
-              </div>
-              <div class="partner-card" role="listitem">
-                <img
-                  src="./images/participants/participant-3.svg"
-                  alt="РАКИБ"
-                />
-              </div>
-              <div class="partner-card" role="listitem">
-                <img
-                  src="./images/participants/participant-4.svg"
-                  alt="КоинКит"
-                />
-              </div>
-              <div class="partner-card" role="listitem">
-                <img src="./images/participants/participant-5.svg" alt="ЛДПР" />
-              </div>
-            </div>
-          </section>
-          <div class="cta-wrap">
-            <button type="button" class="cta-btn">Присоединиться</button>
-          </div>
-        </div>
+        </section> -->
+        <!-- <div class="content-inner">
+          <section class="section-participants">...</section>
+        </div> -->
       </main>
       <aside class="page-right-bg" aria-hidden="true">
         <div
@@ -885,13 +837,25 @@
           data-ink="#5ab0ff"
         ></div>
         <div class="top-bar-action">
-          <a href="#" class="header-action header-action--top"
-            >Сообщить об инциденте</a
-          >
+          <a href="https://t.me/+M-QbTEuzXUtjOTgy" target="_blank" rel="noopener noreferrer" class="header-action header-action--top">Сообщить об инциденте</a>
         </div>
       </aside>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
     <script src="./js/hero-bg.js"></script>
+    <script>
+      (function () {
+        var center = document.querySelector(".page-center");
+        var left = document.querySelector(".page-left");
+        var right = document.querySelector(".page-right-bg");
+        if (!center || (!left && !right)) return;
+        function onWheel(e) {
+          center.scrollBy({ top: e.deltaY, behavior: "smooth" });
+          e.preventDefault();
+        }
+        left && left.addEventListener("wheel", onWheel, { passive: false });
+        right && right.addEventListener("wheel", onWheel, { passive: false });
+      })();
+    </script>
   </body>
 </html>
